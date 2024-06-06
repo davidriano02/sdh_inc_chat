@@ -1,0 +1,12 @@
+# Node dependencies
+./node_modules
+
+# Logs
+logs
+*.log
+
+# Docker files
+docker-compose.yml
+Dockerfile
+
+
