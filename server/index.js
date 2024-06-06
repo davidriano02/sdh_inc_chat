@@ -24,7 +24,7 @@ const db = createConnection({
 
 db.connect((err) => {
     if (err) throw err;
-    console.log('Connected to database');
+    console.log('Conectado a la base de datos');
 });
 
 let connectedUsers = [];
@@ -34,24 +34,33 @@ const updateConnectedUsers = () => {
 };
 
 socketio.on('connection', (socket) => {
-    console.log('New user connected');
+    console.log('Nuevo usuario conectado');
 
     socket.on('join', (username, callback) => {
         socket.username = username;
 
         db.query('SELECT id FROM users WHERE username = ?', [username], (err, results) => {
             if (err) {
-                callback({ success: false, message: 'Database error' });
+                callback({ success: false, message: 'Error en la base de datos' });
                 throw err;
             }
 
             if (results.length > 0) {
                 socket.userId = results[0].id;
-                connectedUsers.push({ username, userId: socket.userId, socketId: socket.id });
+
+                // Verificar si el usuario ya está en la lista de usuarios conectados
+                const userExists = connectedUsers.some(user => user.userId === socket.userId);
+                if (!userExists) {
+                    connectedUsers.push({ username, userId: socket.userId, socketId: socket.id });
+                } else {
+                    // Actualizar el socketId si ya existe el usuario
+                    connectedUsers = connectedUsers.map(user => user.userId === socket.userId ? { ...user, socketId: socket.id } : user);
+                }
+
                 updateConnectedUsers();
                 callback({ success: true });
             } else {
-                callback({ success: false, message: 'User not found' });
+                callback({ success: false, message: 'Usuario no encontrado' });
             }
         });
     });
@@ -69,21 +78,49 @@ socketio.on('connection', (socket) => {
 
                 const receiverSocket = connectedUsers.find(user => user.userId === receiverId);
                 if (receiverSocket) {
-                    socketio.to(receiverSocket.socketId).emit('message', { from, text, timestamp });
+                    socketio.to(receiverSocket.socketId).emit('message', { to, from, text, timestamp });
                 }
+
+                // También enviar el mensaje de vuelta al remitente para actualizar su chat
+                socket.emit('message', { from, to, text, timestamp });
             });
+        });
+    });
+
+    socket.on('fetchMessages', (receiver, callback) => {
+        db.query(`
+            SELECT u1.username as sender, u2.username as receiver, m.message, m.timestamp
+            FROM messages m
+            JOIN users u1 ON m.sender_id = u1.id
+            JOIN users u2 ON m.receiver_id = u2.id
+            WHERE (u1.username = ? AND u2.username = ?)
+            OR (u1.username = ? AND u2.username = ?)
+            ORDER BY m.timestamp
+        `, [socket.username, receiver, receiver, socket.username], (err, results) => {
+            if (err) {
+                callback({ success: false, message: 'Error en la base de datos' });
+                throw err;
+            }
+            callback({ success: true, messages: results });
         });
     });
 
     socket.on('disconnect', () => {
         connectedUsers = connectedUsers.filter(user => user.userId !== socket.userId);
         updateConnectedUsers();
+        console.log('Usuario desconectado');
+
+        // Emitir el evento de desconexión de usuario
         socketio.emit('userDisconnected', { username: socket.username, userId: socket.userId });
+    });
+    socket.on('manualDisconnect',()=>{
+        connectedUsers = connectedUsers.filter(user => user.Id !== socket.userId)
+        updateConnectedUsers();
+        console.log('Usuario desconectado');
+        socket.disconnect();
     });
 });
 
 server.listen(3001, () => {
-    console.log('Server listening on port 3001');
+    console.log('Servidor escuchando en el puerto 3001');
 });
-
-

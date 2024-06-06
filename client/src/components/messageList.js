@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import ChatContext from '../context/chatContext';
+import React from 'react';
 
-const MessageList = () => {
-    const { messages, currentUser } = useContext(ChatContext);
-
+const MessageList = ({ messages, currentUser, currentReceiver }) => {
+    console.log(messages)
+    console.log(currentReceiver)
+    console.log(currentUser)
     return (
         <div className="message-list-container">
             <h3>Messages:</h3>
@@ -13,7 +13,7 @@ const MessageList = () => {
                         key={index}
                         className={`message ${message.from === currentUser ? 'sent' : 'received'}`}
                     >
-                        <p><strong>{message.from}</strong>: {message.text}</p>
+                        <p><strong>{message.from}</strong>: {message.message}</p>
                         <small>{message.timestamp}</small>
                     </li>
                 ))}

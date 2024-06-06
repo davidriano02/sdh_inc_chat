@@ -4,7 +4,7 @@ import MessageInput from './messageInput';
 import MessageList from './messageList';
 
 const Chat = () => {
-    const { currentUser, currentReceiver, sendMessage } = useContext(ChatContext);
+    const { currentUser, currentReceiver, sendMessage, messages, } = useContext(ChatContext);
 
     const handleSendMessage = (text) => {
         sendMessage(text);
@@ -14,7 +14,7 @@ const Chat = () => {
         <div className="chat-container">
             <h2>Welcome, {currentUser}!</h2>
             <div>
-                <MessageList />
+                <MessageList messages={messages[currentReceiver?.username] || []} currentUser={currentUser} />
                 <MessageInput onSendMessage={handleSendMessage} />
             </div>
             {currentReceiver && <p>Sending message to: {currentReceiver.username}</p>}
@@ -23,6 +23,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
-
-

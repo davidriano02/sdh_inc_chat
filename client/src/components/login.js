@@ -1,4 +1,3 @@
-// Login.js
 import React, { useState, useContext } from 'react';
 import ChatContext from '../context/chatContext';
 

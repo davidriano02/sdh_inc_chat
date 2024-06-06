@@ -6,7 +6,7 @@ const socket = io('http://localhost:3001');
 
 const ChatProvider = ({ children }) => {
     const [users, setUsers] = useState([]);
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState({});
     const [currentUser, setCurrentUser] = useState(null);
     const [currentReceiver, setCurrentReceiver] = useState(null);
 
@@ -24,7 +24,22 @@ const ChatProvider = ({ children }) => {
         });
 
         socket.on('message', (message) => {
-            setMessages((prevMessages) => [...prevMessages, message]);
+            console.log(message)
+            setMessages((prevMessages) => {
+                const updatedMessages = { ...prevMessages };
+                const chatId = message.from === currentUser ? message.to : message.from;
+                if (!updatedMessages[chatId]) {
+                    updatedMessages[chatId] = [];
+                }else{
+                updatedMessages[chatId].push({
+                    sender: message.from,
+                    receiver: message.to,
+                    message: message.text,
+                    timestamp: message.timestamp
+                }); 
+            }
+                return updatedMessages;
+            });
         });
 
         return () => {
@@ -33,7 +48,7 @@ const ChatProvider = ({ children }) => {
             socket.off('connectedUsers');
             socket.off('message');
         };
-    }, []);
+    }, [currentUser]);
 
     const joinChat = (username, callback) => {
         socket.emit('join', username, callback);
@@ -43,17 +58,37 @@ const ChatProvider = ({ children }) => {
         if (currentReceiver) {
             const message = { to: currentReceiver.username, text, from: currentUser };
             socket.emit('message', message);
-            setMessages((prevMessages) => [...prevMessages, { ...message, timestamp: new Date().toISOString() }]);
+        }
+    };
+
+    const fetchMessages = (receiver) => {
+        if (receiver) {
+            socket.emit('fetchMessages', receiver.username, ({ success, messages }) => {
+                if (success) {
+                    setMessages((prevMessages) => ({
+                        ...prevMessages,
+                        [receiver.username]: messages,
+                    }));
+                }
+            });
         }
     };
 
     return (
-        <ChatContext.Provider value={{ users, messages, currentUser, currentReceiver, setCurrentReceiver, joinChat, sendMessage, setCurrentUser }}>
+        <ChatContext.Provider value={{
+            users,
+            messages,
+            currentUser,
+            currentReceiver,
+            setCurrentReceiver,
+            joinChat,
+            sendMessage,
+            setCurrentUser,
+            fetchMessages
+        }}>
             {children}
         </ChatContext.Provider>
     );
 };
 
 export default ChatProvider;
-
-

@@ -2,7 +2,12 @@ import React, { useContext } from 'react';
 import ChatContext from '../context/chatContext';
 
 const UserList = () => {
-    const { users, setCurrentReceiver, currentUser } = useContext(ChatContext);
+    const { users, setCurrentReceiver, currentUser, fetchMessages } = useContext(ChatContext);
+
+    const handleUserClick = (user) => {
+        setCurrentReceiver(user);
+        fetchMessages(user);
+    };
 
     return (
         <div className="user-list-container">
@@ -11,7 +16,7 @@ const UserList = () => {
                 {users
                     .filter((user) => user.username !== currentUser) // Filtrar el usuario actual
                     .map((user) => (
-                        <li key={user.userId} onClick={() => setCurrentReceiver(user)}>
+                        <li key={user.userId} onClick={() => handleUserClick(user)}>
                             {user.username} (ID: {user.userId})
                         </li>
                     ))}
@@ -21,6 +26,3 @@ const UserList = () => {
 };
 
 export default UserList;
-
-
-
