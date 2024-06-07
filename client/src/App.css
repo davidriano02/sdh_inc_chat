@@ -23,7 +23,7 @@ body {
 .header {
   text-align: center;
   padding: 20px;
-  background-color: #3498db;
+  background-color: #adc0cb;
   color: white;
   border-radius: 0px;
   margin-bottom: 0px;
@@ -46,7 +46,7 @@ body {
 
 .user-list-container {
   width: 25%;
-  background-color: #0056b3; 
+  background-color: #adc0cb; 
   color: white;
   padding: 10px;
   box-sizing: border-box;
@@ -204,19 +204,19 @@ body {
 }
 
 .message.sent {
-  background-color: #b8c4ed ; 
+  background-color: #b7bbcb; 
   align-self: flex-end;
   text-align: right;
 }
 
 .message.received {
-  background-color: #9aa6e5; 
+  background-color: #cacbcd; 
   align-self: flex-start;
   text-align: left;
 }
 .user-list-container li {
   padding: 10px;
-  border-bottom: 1px solid #407fc3;
+  border-bottom: 1px solid #2d2f33;
   cursor: pointer;
   border-radius: 4px;
   display: flex;

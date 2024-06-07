@@ -39,24 +39,24 @@ USE sdh_inc_chat;
 
 -- Insert 5 random users
 INSERT INTO users (username) VALUES 
-('user1'),
-('user2'),
-('user3'),
-('user4'),
-('user5');
+('david'),
+('camila'),
+('miguel'),
+('diana'),
+('tata');
 
 -- Insert 2 random messages for each user (assuming they send messages to each other)
 INSERT INTO messages (sender_id, receiver_id, message) VALUES
-(1, 2, 'Hello from user1 to user2'),
-(1, 3, 'Hello from user1 to user3'),
-(2, 1, 'Hello from user2 to user1'),
-(2, 4, 'Hello from user2 to user4'),
-(3, 1, 'Hello from user3 to user1'),
-(3, 5, 'Hello from user3 to user5'),
-(4, 1, 'Hello from user4 to user1'),
-(4, 2, 'Hello from user4 to user2'),
-(5, 1, 'Hello from user5 to user1'),
-(5, 3, 'Hello from user5 to user3');
+(1, 2, 'hola ¿Como estas?'),
+(1, 3, 'hola ¿Como estas?'),
+(2, 1, 'hola ¿Como estas? '),
+(2, 4, 'hola ¿Como estas?'),
+(3, 1, 'hola ¿Como estas?'),
+(3, 5, 'hola ¿Como estas?'),
+(4, 1, 'hola ¿Como estas?'),
+(4, 2, 'hola ¿Como estas?'),
+(5, 1, 'hola ¿Como estas?'),
+(5, 3, 'hola ¿Como estas?');
 
 -- Verify the data
 SELECT * FROM users;
