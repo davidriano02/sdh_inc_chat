@@ -21,4 +21,4 @@ FROM nginx:alpine
 COPY --from=0 /app/build /usr/share/nginx/html
 
 # Expone el puerto en el que se servirá la aplicación del cliente
-EXPOSE 80
+EXPOSE 3000
