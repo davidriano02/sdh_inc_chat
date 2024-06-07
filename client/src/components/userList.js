@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import ChatContext from '../context/chatContext';
 
 const UserList = () => {
-    const { users, setCurrentReceiver, currentUser, fetchMessages } = useContext(ChatContext);
+    const { users, setCurrentReceiver, currentUser, fetchMessages, unreadMessages } = useContext(ChatContext);
 
     const handleUserClick = (user) => {
         setCurrentReceiver(user);
@@ -17,7 +17,10 @@ const UserList = () => {
                     .filter((user) => user.username !== currentUser)
                     .map((user) => (
                         <li key={user.userId} onClick={() => handleUserClick(user)}>
-                            {user.username} 
+                            {user.username}
+                            {unreadMessages[user.username] > 0 && (
+                                <span className="new-message-alert"> NUEVO MENSAJE</span>
+                            )}
                         </li>
                     ))}
             </ul>

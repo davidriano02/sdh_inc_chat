@@ -30,12 +30,12 @@ body {
 }
 
 .header h1 {
-  margin: 0;  /* Remueve márgenes adicionales */
+  margin: 0;  
 }
 
 .welcome-message {
-  margin: 5px 0 0 0;  /* Ajusta márgenes para colocar el mensaje de bienvenida debajo del título */
-  font-size: 18px;  /* Ajusta el tamaño del texto si es necesario */
+  margin: 5px 0 0 0; 
+  font-size: 18px;  
 }
 
 .chat-content {
@@ -46,7 +46,7 @@ body {
 
 .user-list-container {
   width: 25%;
-  background-color: #0056b3; /* Color azul más oscuro */
+  background-color: #0056b3; 
   color: white;
   padding: 10px;
   box-sizing: border-box;
@@ -66,13 +66,13 @@ body {
 
 .user-list-container li {
   padding: 10px;
-  border-bottom: 1px solid #004494; /* Color azul más oscuro */
+  border-bottom: 1px solid #004494; 
   cursor: pointer;
   border-radius: 4px;
 }
 
 .user-list-container li:hover {
-  background-color: #004494; /* Color azul más oscuro */
+  background-color: #004494; 
 }
 
 .user-list-container li:last-child {
@@ -118,7 +118,7 @@ body {
 
 .join-chat button {
   padding: 10px 20px;
-  background-color: #007bff; /* Color azul */
+  background-color: #007bff; 
   color: white;
   border: none;
   cursor: pointer;
@@ -126,7 +126,7 @@ body {
 }
 
 .join-chat button:hover {
-  background-color: #0056b3; /* Color azul más oscuro */
+  background-color: #0056b3; 
 }
 
 .error-message {
@@ -152,7 +152,7 @@ body {
 
 .message-input-container button {
   padding: 10px 20px;
-  background-color: #007bff; /* Color azul */
+  background-color: #007bff; 
   color: white;
   border: none;
   cursor: pointer;
@@ -160,7 +160,7 @@ body {
 }
 
 .message-input-container button:hover {
-  background-color: #0056b3; /* Color azul más oscuro */
+  background-color: #0056b3; 
 }
 
 .message-list-container {
@@ -171,6 +171,8 @@ body {
   border: 1px solid #bdc3c7;
   border-radius: 4px;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .message-list-container h3 {
@@ -180,26 +182,68 @@ body {
 .message-list {
   list-style: none;
   padding: 0;
+  margin: 0;
+  flex: 1;
 }
 
 .message-list li {
   padding: 10px;
   margin-bottom: 10px;
   border-bottom: 1px solid #ecf0f1;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
 }
 
 .message {
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 10px;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .message.sent {
-  background-color: #dcf8c6;
+  background-color: #b8c4ed ; 
   align-self: flex-end;
+  text-align: right;
 }
 
 .message.received {
-  background-color: #fff;
+  background-color: #9aa6e5; 
   align-self: flex-start;
+  text-align: left;
 }
+.user-list-container li {
+  padding: 10px;
+  border-bottom: 1px solid #407fc3;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between; 
+}
+
+.user-list-container li:hover {
+  background-color: #004494; 
+}
+
+.new-message-alert {
+  background-color: #ff6b6b; 
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-left: 10px; 
+}
+.chat-header {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  border-radius: 26px 26px 0 0;
+  text-align: center; /* Centrar el texto */
+}
+
+.chat-header-text {
+  font-size: 1.2em; /* Tamaño de fuente más grande */
+}
+

@@ -9,6 +9,7 @@ const ChatProvider = ({ children }) => {
     const [messages, setMessages] = useState({});
     const [currentUser, setCurrentUser] = useState(null);
     const [currentReceiver, setCurrentReceiver] = useState(null);
+    const [unreadMessages, setUnreadMessages] = useState({});  // Estado para mensajes no leídos
 
     useEffect(() => {
         socket.on('userConnected', (user) => {
@@ -24,20 +25,25 @@ const ChatProvider = ({ children }) => {
         });
 
         socket.on('message', (message) => {
-            console.log(message)
+            const { from } = message;
+            if (from !== currentReceiver?.username) {
+                setUnreadMessages((prevUnreadMessages) => ({
+                    ...prevUnreadMessages,
+                    [from]: (prevUnreadMessages[from] || 0) + 1
+                }));
+            }
             setMessages((prevMessages) => {
                 const updatedMessages = { ...prevMessages };
                 const chatId = message.from === currentUser ? message.to : message.from;
                 if (!updatedMessages[chatId]) {
                     updatedMessages[chatId] = [];
-                }else{
+                }
                 updatedMessages[chatId].push({
                     sender: message.from,
                     receiver: message.to,
                     message: message.text,
                     timestamp: message.timestamp
-                }); 
-            }
+                });
                 return updatedMessages;
             });
         });
@@ -48,7 +54,7 @@ const ChatProvider = ({ children }) => {
             socket.off('connectedUsers');
             socket.off('message');
         };
-    }, [currentUser]);
+    }, [currentUser, currentReceiver]);
 
     const joinChat = (username, callback) => {
         socket.emit('join', username, callback);
@@ -65,6 +71,10 @@ const ChatProvider = ({ children }) => {
         if (receiver) {
             socket.emit('fetchMessages', receiver.username, ({ success, messages }) => {
                 if (success) {
+                    setUnreadMessages((prevUnreadMessages) => ({
+                        ...prevUnreadMessages,
+                        [receiver.username]: 0
+                    }));
                     setMessages((prevMessages) => ({
                         ...prevMessages,
                         [receiver.username]: messages,
@@ -84,7 +94,8 @@ const ChatProvider = ({ children }) => {
             joinChat,
             sendMessage,
             setCurrentUser,
-            fetchMessages
+            fetchMessages,
+            unreadMessages
         }}>
             {children}
         </ChatContext.Provider>

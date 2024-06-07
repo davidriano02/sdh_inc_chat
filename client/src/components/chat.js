@@ -12,8 +12,11 @@ const Chat = () => {
 
     return (
         <div className="chat-container">
-            <h2>Bienvenido, {currentUser}!</h2>
-            {currentReceiver && <p>Chat con {currentReceiver.username}</p>}
+            {currentReceiver && (
+                <div className="chat-header">
+                    <p className="chat-header-text">Chat con {currentReceiver.username}</p>
+                </div>
+            )}
             <MessageList messages={messages[currentReceiver?.username] || []} currentUser={currentUser} />
             <MessageInput onSendMessage={handleSendMessage} />
         </div>
