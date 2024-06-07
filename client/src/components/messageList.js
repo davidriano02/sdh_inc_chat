@@ -6,7 +6,7 @@ const MessageList = ({ messages, currentUser, currentReceiver }) => {
     console.log(currentUser)
     return (
         <div className="message-list-container">
-            <h3>Messages:</h3>
+            <h3>Mensajes:</h3>
             <ul className="message-list">
                 {messages.map((message, index) => (
                     <li

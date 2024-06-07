@@ -11,13 +11,13 @@ const UserList = () => {
 
     return (
         <div className="user-list-container">
-            <h3>Connected Users:</h3>
+            <h3>Usuarios Disponibles:</h3>
             <ul className="user-list">
                 {users
-                    .filter((user) => user.username !== currentUser) // Filtrar el usuario actual
+                    .filter((user) => user.username !== currentUser)
                     .map((user) => (
                         <li key={user.userId} onClick={() => handleUserClick(user)}>
-                            {user.username} (ID: {user.userId})
+                            {user.username} 
                         </li>
                     ))}
             </ul>

@@ -21,11 +21,11 @@ const Login = () => {
         <div className="join-chat">
             <input
                 type="text"
-                placeholder="Enter username"
+                placeholder="Enter escriba un usuario"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
-            <button onClick={handleJoinChat}>Join Chat</button>
+            <button onClick={handleJoinChat}>Ingresar</button>
             {error && <p className="error-message">{error}</p>}
         </div>
     );

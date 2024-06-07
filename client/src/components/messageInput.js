@@ -14,11 +14,11 @@ const MessageInput = ({ onSendMessage }) => {
         <div className="message-input-container">
             <input
                 type="text"
-                placeholder="Enter your message"
+                placeholder="Escriba un mensaje"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
             />
-            <button onClick={handleSend}>Send</button>
+            <button onClick={handleSend}>Enviar</button>
         </div>
     );
 };

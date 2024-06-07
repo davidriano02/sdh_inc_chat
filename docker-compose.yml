@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+    environment:
+      NODE_ENV: production
+      DB_HOST: db
+      DB_USER: usuario
+      DB_PASSWORD: contraseña
+      DB_NAME: nombre_de_base_de_datos
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    ports:
+      - "80:80"
+    volumes:
+      - ./client:/app
+    environment:
+      NODE_ENV: production
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'sdh_inc_chat'
+      
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./chat.sql:/docker-entrypoint-initdb.d/chat.sql
+
+volumes:
+  db_data:
