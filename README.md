@@ -40,7 +40,7 @@ SDH Inc Chat es una aplicación de chat en tiempo real construida con React en e
 1. **Clonar el repositorio**
 
     ```bash
-    git clone https://github.com/tuusuario/sdh-inc-chat.git
+    https://github.com/davidriano02/sdh_inc_chat.git
     cd sdh-inc-chat
     ```
 
@@ -170,4 +170,20 @@ Si prefieres instalar y ejecutar la aplicación sin Docker, sigue estos pasos:
 4. Envía y recibe mensajes en tiempo real.
 
 ## **Imagenes del Proyecto**
+
+1. Inicio de chat.
+   
+![image](https://github.com/davidriano02/sdh_inc_chat/assets/132162397/a2ffde01-922f-4d63-834a-c2e8cc692d2d)
+
+2. interfaz del chat donde evidenciamos quien inicio sesion y que usuario estan conectados.
+   
+![image](https://github.com/davidriano02/sdh_inc_chat/assets/132162397/0dc82a7c-4cb9-4397-95e7-57ce78a39a3e)
+
+3. Chat en tiempo real, notificacion de nuevo mensaje y historial de chat almacenados.
+
+   ![image](https://github.com/davidriano02/sdh_inc_chat/assets/132162397/79647620-1c97-4697-869d-3ffbc7f0d2c4)
+   ![image](https://github.com/davidriano02/sdh_inc_chat/assets/132162397/acc5ceaf-f010-46e7-a7ca-c296dcc505be)
+
+
+
 
