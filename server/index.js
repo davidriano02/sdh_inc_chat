@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import { createConnection } from 'mysql2';
 import cors from 'cors';
 import { config as dotenvConfig } from 'dotenv';
+
 dotenvConfig();
 
 const app = express();
@@ -18,12 +19,11 @@ const socketio = new Server(server, {
 app.use(cors());
 
 const db = createConnection({
-    host: process.env.DB_HOST ,
-    user: process.env.DB_USER ,
-    password: process.env.DB_PASSWORD ,
-    database: process.env.DB_DATABASE 
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
-
 
 db.connect((err) => {
     if (err) {
@@ -38,6 +38,17 @@ let connectedUsers = [];
 const updateConnectedUsers = () => {
     socketio.emit('connectedUsers', connectedUsers);
 };
+
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
 
 socketio.on('connection', (socket) => {
     console.log('Nuevo usuario conectado');
@@ -79,7 +90,7 @@ socketio.on('connection', (socket) => {
 
     socket.on('message', (message) => {
         const { to, text, from } = message;
-        const timestamp = new Date().toISOString();
+        const timestamp = formatDate(new Date());
 
         if (!to || !text || !from) {
             console.error('Mensaje inválido:', message);
