@@ -246,4 +246,6 @@ body {
 .chat-header-text {
   font-size: 1.2em; /* Tamaño de fuente más grande */
 }
-
+.small {
+  font-size: 0.8em; /* Tamaño de letra más pequeño para la hora */
+}
