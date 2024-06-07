@@ -182,8 +182,10 @@ Si prefieres instalar y ejecutar la aplicación sin Docker, sigue estos pasos:
 3. Chat en tiempo real, notificacion de nuevo mensaje y historial de chat almacenados.
 
    ![image](https://github.com/davidriano02/sdh_inc_chat/assets/132162397/79647620-1c97-4697-869d-3ffbc7f0d2c4)
-   ![image](https://github.com/davidriano02/sdh_inc_chat/assets/132162397/acc5ceaf-f010-46e7-a7ca-c296dcc505be)
-4. Contenedor de Docker con Imagen del Servidor, CLiente (frontend)y base de datos .
+   
+   ![image](https://github.com/davidriano02/sdh_inc_chat/assets/132162397/598b289a-2c43-4383-a549-2544fef78df4)
+
+5. Contenedor de Docker con Imagen del Servidor, CLiente (frontend)y base de datos .
    ![image](https://github.com/davidriano02/sdh_inc_chat/assets/132162397/cdd30374-9e8c-4044-b508-6cb03c60aad9)
 
 
